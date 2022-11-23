@@ -184,7 +184,13 @@ export class MineSweeperComponent implements OnInit {
     return false;
   }
 
-  //run a cb on every adj cell of a given cell by iCol and iRow
+  /**
+   * run a cb on every adj cell of a given cell by iCol and iRow
+   * @param mineData 
+   * @param iRow 
+   * @param iCol 
+   * @param cb 
+   */
   loopAdjCells(mineData: CellData[][], iRow: number, iCol: number, cb: any) {
     let perimeter: PerimeterDirections = {
       northWest: {
@@ -277,25 +283,26 @@ export class MineSweeperComponent implements OnInit {
     });
   }
 
-  uncoverCell(iRow: number, iCol: number) {
+  uncoverCell(iRow: number, iCol: number, mineData: CellData[][]) {
     //if already uncovered
-    if (this.mineData[iRow][iCol].uncovered) {
+    if (mineData[iRow][iCol].uncovered) {
       return;
     }
 
-    this.mineData[iRow][iCol].uncovered = true;
+    mineData[iRow][iCol].uncovered = true;
     this.cellsUncovered++;
 
-    this.mineData[iRow][iCol].markedAs = 'uncovered';
+    mineData[iRow][iCol].markedAs = 'uncovered';
     this.uncoverAdjacentZeroSqs(iRow, iCol);
 
-    //todo change to beginner
     let cellsLeft = this.getCellsLeft(
       this.gridSize,
       this.gridSize,
       this.minesPlaced,
       this.cellsUncovered
     );
+
+    this.mineData = mineData
 
     console.log('cellsleft---------', cellsLeft);
     if (cellsLeft === 0) {
