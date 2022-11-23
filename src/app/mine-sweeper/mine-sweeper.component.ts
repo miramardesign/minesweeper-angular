@@ -245,7 +245,7 @@ export class MineSweeperComponent implements OnInit {
     });
   }
 
-  goTurn(iRow: number, iCol: number) {
+  goTurn(iRow: number, iCol: number, mineData:  CellData[][]) {
     //already lost.
     if (this.isLose) {
       return;
@@ -253,7 +253,7 @@ export class MineSweeperComponent implements OnInit {
 
     console.log('clicked row ', iRow, 'col', iCol);
 
-    if (this.isMine(iRow, iCol)) {
+    if (this.isMine(iRow, iCol, mineData)) {
       this.onLoseCondition(iRow, iCol);
     } else {
       this.uncoverCell(iRow, iCol);
@@ -337,8 +337,8 @@ export class MineSweeperComponent implements OnInit {
     }
   }
 
-  isMine(iRow: number, iCol: number) {
-    return this.mineData[iRow][iCol].hasMine;
+  isMine(iRow: number, iCol: number, mineData: CellData[][]) {
+    return mineData[iRow][iCol].hasMine;
   }
 
   //just marks as bomb on 1st right click, as question on 2nd and clears on third,
@@ -387,7 +387,7 @@ export class MineSweeperComponent implements OnInit {
     this.isWin = true;
   }
 
-  reset() {
+  resetGrid() {
     this.minesPlaced = 0;
     this.isLose = false;
     this.mineData = this.getMineData();
