@@ -13,8 +13,8 @@ import { reducer } from './core/game.reducer';
 
 
 const routes: Routes = [
-  { path: 'home', component: MineSweeperComponent},
-  { path: '', redirectTo: '/home', pathMatch: 'full'}
+  { path: '', component: MineSweeperComponent},
+  // { path: '', redirectTo: '/home', pathMatch: 'full'}
 ];
 @NgModule({
   declarations: [

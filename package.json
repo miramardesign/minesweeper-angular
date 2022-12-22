@@ -6,9 +6,7 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test",
-    "ionic:build": "npm run build",
-    "ionic:serve": "npm run start"
+    "test": "ng test"
   },
   "private": true,
   "dependencies": {
@@ -37,8 +35,7 @@
     "@angular-devkit/build-angular": "~13.3.2",
     "@angular/cli": "~13.3.2",
     "@angular/compiler-cli": "~13.3.0",
-    "@ionic/angular-toolkit": "latest",
-    "@ionic/cli": "6.20.1",
+ 
     "@types/jasmine": "~3.10.0",
     "@types/node": "^12.11.1",
     "jasmine-core": "~4.0.0",
