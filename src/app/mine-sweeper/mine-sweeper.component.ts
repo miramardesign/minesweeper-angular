@@ -262,7 +262,7 @@ export class MineSweeperComponent implements OnInit {
     if (this.isMine(iRow, iCol, mineData)) {
       this.onLoseCondition(iRow, iCol);
     } else {
-      this.uncoverCell(iRow, iCol);
+      this.uncoverCell(iRow, iCol, mineData);
     }
   }
 
