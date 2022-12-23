@@ -6,7 +6,7 @@ import {
   GameTypes,
   PerimeterDirections,
 } from 'src/assets/types/mineTypes';
-import { toggleLost } from '../state/game.actions';
+import { setStart, toggleLost } from '../state/game.actions';
 import { GameSizes } from 'src/utils/mineSetupData';
 import { GameState } from 'src/assets/types/state';
 @Component({
@@ -17,8 +17,10 @@ import { GameState } from 'src/assets/types/state';
 export class MineSweeperComponent implements OnInit {
   gameState$: Observable<GameState>;
 
-  constructor(private store: Store<{ gameState: any }>) {
+  dispatch: any;
+  constructor(private store: Store<{ gameState: GameState }>) {
     this.gameState$ = store.select('gameState');
+    this.dispatch = this.store.dispatch;
   }
 
   gridSize: number = 8;
@@ -32,7 +34,6 @@ export class MineSweeperComponent implements OnInit {
 
   //make selector.
   gameSizeChosen: string = 'intermediate';
-  // gameSizeChosen: string = 'intermediate';
 
   mineData: CellData[][] = this.getMineData();
 
@@ -40,7 +41,6 @@ export class MineSweeperComponent implements OnInit {
     console.log('minesPlaced', this.minesPlaced);
     this.setNumAdjMineData(this.mineData);
 
-    //this.uncoverAllCells(this.mineData);
   }
  
   placeMines(
@@ -211,7 +211,8 @@ export class MineSweeperComponent implements OnInit {
   goTurn(iRow: number, iCol: number, mineData: CellData[][]) {
     //already lost.
 
-    //this.store.dispatch(setStart({isGameStart: true}))
+    this.store.dispatch(setStart({isGameStart: true}))
+    //this.dispatch(setStart({isGameStart: true}))
     if (this.isLose) {
       return;
     }

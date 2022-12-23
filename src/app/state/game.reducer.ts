@@ -4,7 +4,7 @@ import {
   GameTypes,
 } from 'src/assets/types/mineTypes';
 import { GameActions, GameActionType, GameState } from 'src/assets/types/state';
-import { toggleLost} from './game.actions';
+import { setStart, toggleLost} from './game.actions';
 
 export const gridSizeSeparate: keyof GameTypes = 'test';
 
