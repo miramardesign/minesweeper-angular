@@ -35,9 +35,11 @@ export class MineSweeperComponent implements OnInit {
   constructor(private store: Store) {
   // constructor(private store: Store<{ isLost: boolean, isGameStart: boolean }>) {
 
-    //this.isLost$ = store.select('isLost');
     this.isLost$ = of(false);
-   // this.isGameStart$ = store.select('isGameStart');
+    //this.isLost$ = store.select('isLost');
+
+    //this.isGameStart$ = store.select('isGameStart');
+    this.isGameStart$ = of(false);
   }
 
   gridSize: number = 8;
