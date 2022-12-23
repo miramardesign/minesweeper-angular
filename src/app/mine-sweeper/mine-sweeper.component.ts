@@ -1,27 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable, of } from 'rxjs';
-import { CellData, CellDirectionData, GameConfig } from 'src/assets/types/mineTypes';
+import { CellData, CellDirectionData, GameConfig, GameTypes, PerimeterDirections } from 'src/assets/types/mineTypes';
 import { setStart, toggleLost } from '../state/game.actions';
-
-interface GameTypes {
-  beginner: GameConfig;
-  intermediate: GameConfig;
-  expert: GameConfig;
-}
-
- 
-
-interface PerimeterDirections {
-  northWest: CellDirectionData;
-  north: CellDirectionData;
-  northEast: CellDirectionData;
-  west: CellDirectionData;
-  east: CellDirectionData;
-  southWest: CellDirectionData;
-  south: CellDirectionData;
-  southEast: CellDirectionData;
-}
 
 @Component({
   selector: 'app-mine-sweeper',
@@ -54,6 +35,11 @@ export class MineSweeperComponent implements OnInit {
   // Some notes on terminology: The three official board sizes are Beginner
   // (8x8 with 10 mines), Intermediate (16x16 with 40 mines), and Expert (16x30 with 99 mines).
   gameSizes: GameTypes = {
+    test: {
+      rows: 4,
+      cols: 4,
+      mines: 2,
+    },
     beginner: {
       rows: 8,
       cols: 8,
