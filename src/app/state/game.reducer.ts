@@ -1,9 +1,7 @@
 import { createReducer, on } from '@ngrx/store';
 import {
-  CellData,
   GameStateDisplay,
   GameTypes,
-  GameTypesKeys,
 } from 'src/assets/types/mineTypes';
 import { GameActions, GameActionType, GameState } from 'src/assets/types/state';
 import { toggleLost} from './game.actions';
@@ -11,17 +9,6 @@ import { toggleLost} from './game.actions';
 export const gridSizeSeparate: keyof GameTypes = 'test';
 
 // export const emptyMineDataStructure = getGridDataStructureFromGameConfig(getGameSize(gridSizeSeparate));
-
-// export type GameState = {
-//   isLost: boolean;
-//   isGameOver: boolean;
-//   isGameStarted: boolean;
-//   uncoveredCells: number;
-//   flagsPlaced: number;
-//   gridSize: GameTypesKeys;
-//   gameStateDisplay: GameStateDisplay;
-//   mineData: CellData[][]; //emptyMineDataStructure
-// };
 
 export const initialState: GameState = {
   isLost: false,
@@ -35,7 +22,6 @@ export const initialState: GameState = {
 
   //mineData: emptyMineDataStructure,
   mineData: [],
-  //  mineDataOlde:  JSON.parse(JSON.stringify(emptyMineDataStructure)),
 };
 
 // https://ngrx.io/guide/store
