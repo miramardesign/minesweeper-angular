@@ -44,14 +44,14 @@ export const gameReducer = createReducer(
       gameStateDisplay: GameStateDisplay.LOSE,
     };
   }),
-  // on(setStart, (state, {isGameStart}) => {
-  //   console.log('setStart called with state', state);
+  on(setStart, (state, {isGameStart}) => {
+    console.log('setStart called with state', state);
 
-  //   return {
-  //     ...state,
-  //     isGameStarted: isGameStart
-  //   };
- //}),
+    return {
+      ...state,
+      isGameStarted: isGameStart
+    };
+ }),
 );
 
 export function OldeReactReducer(
