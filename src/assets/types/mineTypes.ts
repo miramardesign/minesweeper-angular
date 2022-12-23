@@ -13,7 +13,7 @@ export interface MineData {
   rows: RowData[];
 }
 
-interface CellDirectionData {
+export interface CellDirectionData {
   iRow: number;
   iCol: number;
 }

@@ -9,7 +9,7 @@ import { MineSweeperComponent } from './mine-sweeper/mine-sweeper.component';
 import { FormsModule } from '@angular/forms';
 // import { IonicModule } from '@ionic/angular';
 import { StoreModule } from '@ngrx/store';
-import { reducer } from './core/game.reducer';
+import { gameReducer } from './state/game.reducer';
 
 
 const routes: Routes = [
@@ -25,7 +25,7 @@ const routes: Routes = [
     BrowserModule,
     AppRoutingModule,
     RouterModule.forRoot(routes),
-    StoreModule.forRoot(reducer),
+    StoreModule.forRoot(gameReducer),
     FormsModule,
     // IonicModule.forRoot(),
   ],

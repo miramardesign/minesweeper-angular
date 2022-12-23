@@ -1,3 +1,4 @@
+import { createReducer, on } from '@ngrx/store';
 import {
   CellData,
   GameStateDisplay,
@@ -5,6 +6,7 @@ import {
   GameTypesKeys,
 } from 'src/assets/types/mineTypes';
 import { GameActions, GameActionType } from 'src/assets/types/state';
+import { toggleLost, setStart } from './game.actions';
 
 export const gridSizeSeparate: keyof GameTypes = 'test';
 
@@ -36,6 +38,7 @@ export const initialState: GameState = {
   //  mineDataOlde:  JSON.parse(JSON.stringify(emptyMineDataStructure)),
 };
 
+// https://ngrx.io/guide/store
 /**
  * reset the game state...
  * @param initialState
@@ -45,7 +48,30 @@ const initReducer = (initialState: GameState) => {
   return initialState;
 };
 
-export function reducer(state = initialState, action: GameActions): GameState {
+export const gameReducer = createReducer(
+  initialState,
+  on(toggleLost, (state) => {
+    console.log('toggle lost called with state', state);
+    return {
+      ...state,
+      isLost: !state.isLost,
+      gameStateDisplay: GameStateDisplay.LOSE,
+    };
+  }),
+  on(setStart, (state, {isGameStart}) => {
+    console.log('setStart called with state', state);
+
+    return {
+      ...state,
+      isGameStarted: isGameStart
+    };
+  }),
+);
+
+export function OldeReactReducer(
+  state = initialState,
+  action: GameActions
+): GameState {
   switch (action.type) {
     case GameActionType.TOGGLE_LOST:
       return {
