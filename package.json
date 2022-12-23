@@ -26,7 +26,7 @@
     "@capacitor/keyboard": "4.0.1",
     "@capacitor/status-bar": "4.0.1",
     "@ionic/angular": "^6.2.7",
-    "@ngrx/store": "^13.2.0",
+    "@ngrx/store": "^14.3.2",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.11.4"
