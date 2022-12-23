@@ -3,7 +3,7 @@ import { Store } from '@ngrx/store';
 import { Observable, of } from 'rxjs';
 import { CellData, CellDirectionData, GameConfig, GameTypes, PerimeterDirections } from 'src/assets/types/mineTypes';
 import { setStart, toggleLost } from '../state/game.actions';
-
+import { GameSizes } from 'src/utils/mineSetupData';
 @Component({
   selector: 'app-mine-sweeper',
   templateUrl: './mine-sweeper.component.html',
@@ -32,30 +32,6 @@ export class MineSweeperComponent implements OnInit {
   flagsPlaced = 0;
   cellsUncovered = 0;
 
-  // Some notes on terminology: The three official board sizes are Beginner
-  // (8x8 with 10 mines), Intermediate (16x16 with 40 mines), and Expert (16x30 with 99 mines).
-  gameSizes: GameTypes = {
-    test: {
-      rows: 4,
-      cols: 4,
-      mines: 2,
-    },
-    beginner: {
-      rows: 8,
-      cols: 8,
-      mines: 10,
-    },
-    intermediate: {
-      rows: 16,
-      cols: 16,
-      mines: 40,
-    },
-    expert: {
-      rows: 16,
-      cols: 30,
-      mines: 99,
-    },
-  };
   //make selector.
   gameSizeChosen: string = 'intermediate';
   // gameSizeChosen: string = 'intermediate';
@@ -103,9 +79,9 @@ export class MineSweeperComponent implements OnInit {
   }
 
   getMineData() {
-    let numRows = this.gameSizes[this.gameSizeChosen as keyof GameTypes].rows;
-    let numCols = this.gameSizes[this.gameSizeChosen as keyof GameTypes].cols;
-    let numMines = this.gameSizes[this.gameSizeChosen as keyof GameTypes].mines;
+    let numRows = GameSizes[this.gameSizeChosen as keyof GameTypes].rows;
+    let numCols = GameSizes[this.gameSizeChosen as keyof GameTypes].cols;
+    let numMines = GameSizes[this.gameSizeChosen as keyof GameTypes].mines;
 
     let mineData = new Array(numRows).fill([]).map(() => {
       return new Array(numCols).fill({}).map((element: CellData) => {
