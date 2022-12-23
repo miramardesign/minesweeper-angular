@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { Observable, of } from 'rxjs';
+import { CellData, CellDirectionData, GameConfig } from 'src/assets/types/mineTypes';
+import { setStart, toggleLost } from '../state/game.actions';
 
 interface GameTypes {
   beginner: GameConfig;
@@ -6,23 +10,7 @@ interface GameTypes {
   expert: GameConfig;
 }
 
-interface GameConfig {
-  mines: number;
-  rows: number;
-  cols: number;
-}
-
-interface CellData {
-  hasMine: boolean;
-  markedAs: string;
-  uncovered: boolean;
-  numAdjMines: number;
-}
-
-interface CellDirectionData {
-  iRow: number;
-  iCol: number;
-}
+ 
 
 interface PerimeterDirections {
   northWest: CellDirectionData;
@@ -41,6 +29,17 @@ interface PerimeterDirections {
   styleUrls: ['./mine-sweeper.component.scss'],
 })
 export class MineSweeperComponent implements OnInit {
+  isLost$: Observable<boolean>;
+  isGameStart$: Observable<boolean>;
+
+  constructor(private store: Store) {
+  // constructor(private store: Store<{ isLost: boolean, isGameStart: boolean }>) {
+
+    //this.isLost$ = store.select('isLost');
+    this.isLost$ = of(false);
+   // this.isGameStart$ = store.select('isGameStart');
+  }
+
   gridSize: number = 8;
 
   isLose: boolean = false;
@@ -74,8 +73,6 @@ export class MineSweeperComponent implements OnInit {
   // gameSizeChosen: string = 'intermediate';
 
   mineData: CellData[][] = this.getMineData();
-
-  constructor() {}
 
   ngOnInit(): void {
     console.log('minesPlaced', this.minesPlaced);
@@ -186,10 +183,10 @@ export class MineSweeperComponent implements OnInit {
 
   /**
    * run a cb on every adj cell of a given cell by iCol and iRow
-   * @param mineData 
-   * @param iRow 
-   * @param iCol 
-   * @param cb 
+   * @param mineData
+   * @param iRow
+   * @param iCol
+   * @param cb
    */
   loopAdjCells(mineData: CellData[][], iRow: number, iCol: number, cb: any) {
     let perimeter: PerimeterDirections = {
@@ -251,8 +248,10 @@ export class MineSweeperComponent implements OnInit {
     });
   }
 
-  goTurn(iRow: number, iCol: number, mineData:  CellData[][]) {
+  goTurn(iRow: number, iCol: number, mineData: CellData[][]) {
     //already lost.
+
+    this.store.dispatch(setStart({isGameStart: true}))
     if (this.isLose) {
       return;
     }
@@ -302,7 +301,7 @@ export class MineSweeperComponent implements OnInit {
       this.cellsUncovered
     );
 
-    this.mineData = mineData
+    this.mineData = mineData;
 
     console.log('cellsleft---------', cellsLeft);
     if (cellsLeft === 0) {
@@ -360,10 +359,10 @@ export class MineSweeperComponent implements OnInit {
 
     if (cell.markedAs === '') {
       cell.markedAs = 'flag';
-      this.flagsPlaced ++;
+      this.flagsPlaced++;
       //its really a flag, the mines are only shown on lose.
     } else if (cell.markedAs === 'flag') {
-      this.flagsPlaced --;
+      this.flagsPlaced--;
       cell.markedAs = 'question';
     } else if (cell.markedAs === 'question') {
       cell.markedAs = '';
@@ -382,7 +381,7 @@ export class MineSweeperComponent implements OnInit {
   }
 
   onLoseCondition(iRow: number, iCol: number) {
-    this.isLose = true;
+    this.store.dispatch( toggleLost());
     this.mineData[iRow][iCol].markedAs = 'exploded';
     this.uncoverAllCells(this.mineData);
     window.setTimeout(() => {
