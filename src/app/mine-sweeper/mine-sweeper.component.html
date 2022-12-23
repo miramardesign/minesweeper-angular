@@ -1,9 +1,8 @@
 
 <section>
 
-    <span class="mine-counter"> is lost state: {{isLost$ | async  }}</span>
-    <span class="mine-counter"> is game start: {{isGameStart$  | async}}</span>
-    
+    <span class="mine-counter"> is lost state: {{gameState$ | async | json  }}</span>
+     
     <span class="mine-counter"> Mines placed {{minesPlaced}}</span>
 
     <article class="wrap-reset">

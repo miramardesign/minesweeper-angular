@@ -5,23 +5,23 @@ import {
   GameTypes,
   GameTypesKeys,
 } from 'src/assets/types/mineTypes';
-import { GameActions, GameActionType } from 'src/assets/types/state';
-import { toggleLost, setStart } from './game.actions';
+import { GameActions, GameActionType, GameState } from 'src/assets/types/state';
+import { toggleLost} from './game.actions';
 
 export const gridSizeSeparate: keyof GameTypes = 'test';
 
 // export const emptyMineDataStructure = getGridDataStructureFromGameConfig(getGameSize(gridSizeSeparate));
 
-export type GameState = {
-  isLost: boolean;
-  isGameOver: boolean;
-  isGameStarted: boolean;
-  uncoveredCells: number;
-  flagsPlaced: number;
-  gridSize: GameTypesKeys;
-  gameStateDisplay: GameStateDisplay;
-  mineData: CellData[][]; //emptyMineDataStructure
-};
+// export type GameState = {
+//   isLost: boolean;
+//   isGameOver: boolean;
+//   isGameStarted: boolean;
+//   uncoveredCells: number;
+//   flagsPlaced: number;
+//   gridSize: GameTypesKeys;
+//   gameStateDisplay: GameStateDisplay;
+//   mineData: CellData[][]; //emptyMineDataStructure
+// };
 
 export const initialState: GameState = {
   isLost: false,
@@ -58,14 +58,14 @@ export const gameReducer = createReducer(
       gameStateDisplay: GameStateDisplay.LOSE,
     };
   }),
-  on(setStart, (state, {isGameStart}) => {
-    console.log('setStart called with state', state);
+  // on(setStart, (state, {isGameStart}) => {
+  //   console.log('setStart called with state', state);
 
-    return {
-      ...state,
-      isGameStarted: isGameStart
-    };
-  }),
+  //   return {
+  //     ...state,
+  //     isGameStarted: isGameStart
+  //   };
+ //}),
 );
 
 export function OldeReactReducer(

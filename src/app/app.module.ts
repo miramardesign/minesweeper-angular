@@ -7,14 +7,11 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { MineSweeperComponent } from './mine-sweeper/mine-sweeper.component';
 import { FormsModule } from '@angular/forms';
-// import { IonicModule } from '@ionic/angular';
 import { StoreModule } from '@ngrx/store';
 import { gameReducer } from './state/game.reducer';
 
-
 const routes: Routes = [
   { path: '', component: MineSweeperComponent},
-  // { path: '', redirectTo: '/home', pathMatch: 'full'}
 ];
 @NgModule({
   declarations: [
@@ -25,10 +22,9 @@ const routes: Routes = [
     BrowserModule,
     AppRoutingModule,
     RouterModule.forRoot(routes),
-    StoreModule.forRoot(gameReducer),
+    StoreModule.forRoot({gameState: gameReducer}),
     FormsModule,
-    // IonicModule.forRoot(),
-  ],
+   ],
   providers: [],
   bootstrap: [AppComponent]
 })

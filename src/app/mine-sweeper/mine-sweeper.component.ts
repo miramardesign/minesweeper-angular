@@ -1,26 +1,24 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable, of } from 'rxjs';
-import { CellData, CellDirectionData, GameConfig, GameTypes, PerimeterDirections } from 'src/assets/types/mineTypes';
-import { setStart, toggleLost } from '../state/game.actions';
+import {
+  CellData,
+  GameTypes,
+  PerimeterDirections,
+} from 'src/assets/types/mineTypes';
+import { toggleLost } from '../state/game.actions';
 import { GameSizes } from 'src/utils/mineSetupData';
+import { GameState } from 'src/assets/types/state';
 @Component({
   selector: 'app-mine-sweeper',
   templateUrl: './mine-sweeper.component.html',
   styleUrls: ['./mine-sweeper.component.scss'],
 })
 export class MineSweeperComponent implements OnInit {
-  isLost$: Observable<boolean>;
-  isGameStart$: Observable<boolean>;
+  gameState$: Observable<GameState>;
 
-  constructor(private store: Store) {
-  // constructor(private store: Store<{ isLost: boolean, isGameStart: boolean }>) {
-
-    this.isLost$ = of(false);
-    //this.isLost$ = store.select('isLost');
-
-    //this.isGameStart$ = store.select('isGameStart');
-    this.isGameStart$ = of(false);
+  constructor(private store: Store<{ gameState: any }>) {
+    this.gameState$ = store.select('gameState');
   }
 
   gridSize: number = 8;
@@ -44,9 +42,7 @@ export class MineSweeperComponent implements OnInit {
 
     //this.uncoverAllCells(this.mineData);
   }
-
-  // console.log('todo place mines, in rand col and row, being careful to dedupe such that');
-  // console.log('the num of mines is the prescribed number');
+ 
   placeMines(
     mineData: CellData[][],
     numRows: number,
@@ -215,7 +211,7 @@ export class MineSweeperComponent implements OnInit {
   goTurn(iRow: number, iCol: number, mineData: CellData[][]) {
     //already lost.
 
-    this.store.dispatch(setStart({isGameStart: true}))
+    //this.store.dispatch(setStart({isGameStart: true}))
     if (this.isLose) {
       return;
     }
@@ -345,7 +341,7 @@ export class MineSweeperComponent implements OnInit {
   }
 
   onLoseCondition(iRow: number, iCol: number) {
-    this.store.dispatch( toggleLost());
+    this.store.dispatch(toggleLost());
     this.mineData[iRow][iCol].markedAs = 'exploded';
     this.uncoverAllCells(this.mineData);
     window.setTimeout(() => {
