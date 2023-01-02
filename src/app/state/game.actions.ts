@@ -16,20 +16,23 @@ export const setEnd = createAction(
   props<{ isGameOver: boolean }>()
 );
 
-
 // https://stackblitz.com/edit/angular-ngrx-redux-base?file=src%2Fapp%2Fstore%2Factions.ts
 export class ToggleLostAction implements Action {
   readonly type = GameActionType.TOGGLE_LOST;
-  //constructor(public payload: any) {}
-  constructor(public payload: { payload: any }) { }
+  constructor(public payload: boolean) { }
 
 }
 
 export class SetStartAction implements Action {
   readonly type = GameActionType.SET_START
-  //onstructor(public payload: any) {}
-  constructor(public payload: { payload: any }) { }
-
+  constructor(public payload: boolean) { }
 }
 
-export type GameActions = ToggleLostAction | SetStartAction;
+export class SetEndAction implements Action {
+  readonly type = GameActionType.SET_END;
+  constructor(public payload: boolean) { }
+}
+
+export type GameActions = ToggleLostAction
+ | SetStartAction 
+ | SetEndAction;

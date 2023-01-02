@@ -10,9 +10,7 @@ import { setStart, SetStartAction, toggleLost } from '../state/game.actions';
 import { GameSizes } from 'src/utils/mineSetupData';
 import { GameActionType, GameState } from '../state/state';
 
-import {
-  dispatchFacade
-} from '../state/game.dispatch.facade';
+import { dispatchFacade } from '../state/game.dispatch.facade';
 @Component({
   selector: 'app-mine-sweeper',
   templateUrl: './mine-sweeper.component.html',
@@ -25,19 +23,9 @@ export class MineSweeperComponent implements OnInit {
   dispatch: any;
   constructor(
     private store: Store<{ gameState: GameState }>,
-   // private store: Store< GameState >,
     private storeFacade: dispatchFacade
   ) {
     this.gameState$ = store.select('gameState');
-
-    this.subscriptions.push(store.select(state => state).subscribe((next: any) => {
-      console.log('nexxxxxxxxxxxxxxxxxxxt, ', next);
-
-     // this.gameState$ = next;
-
-      
-    }));
-
     this.dispatch = this.storeFacade.dispatch;
   }
 

@@ -1,11 +1,10 @@
 import { GameState } from "src/app/state/state";
 import { CellData, GameStateDisplay, GameTypesKeys } from "./mineTypes";
  
-
 export enum GameActionType {
   TOGGLE_LOST = "TOGGLE_LOST",
   SET_START = "TOGGLE_START",
-  SET_END = "TOGGLE_END",
+  SET_END = "SET_END",
   UPDATE_UNCOVER_CELL = "UPDATE_UNCOVER_CELL",
   CHANGE_GAMESTATE_DISPLAY = "CHANGE_GAMESTATE_DISPLAY",
   INCREMENT_UNCOVER_CELL = "INCREMENT_UNCOVER_CELL",
@@ -26,7 +25,6 @@ type ToggleLostAction = {
 type StartGameAction = {
   type: GameActionType.SET_START;
   payload: boolean;
-
 };
 
 type EndGameAction = {
