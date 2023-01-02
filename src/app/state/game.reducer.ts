@@ -1,6 +1,7 @@
 import { Action, createReducer, on, Store } from '@ngrx/store';
+import { InitialState } from '@ngrx/store/src/models';
 import { GameStateDisplay, GameTypes } from 'src/assets/types/mineTypes';
-import {  GameActionType } from 'src/assets/types/state';
+import { GameActionType } from 'src/assets/types/state';
 // import { GameActions, setEnd, setStart, SetStartAction, toggleLost, ToggleLostAction } from './game.actions';
 import { GameState, initialState } from './state';
 
@@ -24,19 +25,17 @@ import { GameState, initialState } from './state';
 //       ...state,
 //       isGameOver: isGameOver,
 //     };
-//   }), 
+//   }),
 
 // );
-
 
 //trying:
 // https://stackblitz.com/edit/angular-ngrx-redux-base?file=src%2Fapp%2Fstore%2Freducers.ts
 
-
 // export const gameReducerTestFromOther = (state = initialState, action: any)  => {
 //   console.log("TEST reducer:", action, 'state---------------');
 //   switch (action.type) {
-    
+
 //     case ToggleLostAction.TYPE:
 //       return {
 //         ...state,
@@ -52,7 +51,6 @@ import { GameState, initialState } from './state';
 //   }
 // }
 
-
 /**
  * react redux style dispatch. so i can copy the style of that rpoject.
  * anc call dispatch like 
@@ -64,8 +62,8 @@ import { GameState, initialState } from './state';
  */
 // export const gameReducer = (state: any, action: Action) => {
 
- export const gameReducer = (state: any, action: any) => {
-console.log('action')
+export const gameReducer = (state = initialState, action: any) => {
+  console.log('action');
   switch (action.type) {
     case GameActionType.TOGGLE_LOST:
       return {
@@ -123,17 +121,17 @@ console.log('action')
       return initGameReducer(action.payload);
     default:
       return state;
-      console.error("Action not implemented", action);
+      console.error('Action not implemented', action);
       throw new Error();
   }
 };
- 
+
 // https://ngrx.io/guide/store
 /**
  * reset the game state...
  * @param initialState
  * @returns
  */
-const initGameReducer = (initialState: GameState) => {
+export const initGameReducer = (initialState: GameState) => {
   return initialState;
 };

@@ -214,14 +214,9 @@ export class MineSweeperComponent implements OnInit {
   }
 
   goTurn(iRow: number, iCol: number, mineData: CellData[][]) {
-    //already lost.
-    //  this.store.dispatch(new SetStartAction({payload: true}));
-
-    //this.store.dispatch(setStart({ isGameStart: true }));
 
     this.dispatch({ type: GameActionType.SET_START, payload: true });
 
-    //this.dispatch(setStart({isGameStart: true}))
     if (this.isLose) {
       return;
     }
@@ -260,6 +255,8 @@ export class MineSweeperComponent implements OnInit {
 
     mineData[iRow][iCol].uncovered = true;
     this.cellsUncovered++;
+    this.dispatch({ type: GameActionType.UPDATE_UNCOVER_CELL, payload: this.cellsUncovered });
+
 
     mineData[iRow][iCol].markedAs = 'uncovered';
     this.uncoverAdjacentZeroSqs(iRow, iCol);
@@ -302,6 +299,9 @@ export class MineSweeperComponent implements OnInit {
             if (!cell.uncovered) {
               cell.uncovered = true;
               this.cellsUncovered++;
+
+              this.dispatch({ type: GameActionType.UPDATE_UNCOVER_CELL, payload: this.cellsUncovered });
+
 
               //call neighborcells recursion!!---
               this.uncoverAdjacentZeroSqs(iRow, iCol);
@@ -351,7 +351,9 @@ export class MineSweeperComponent implements OnInit {
   }
 
   onLoseCondition(iRow: number, iCol: number) {
-    this.store.dispatch(toggleLost());
+    this.dispatch({ type: GameActionType.TOGGLE_LOST });
+    this.dispatch({ type: GameActionType.SET_END, payload: true });
+
     this.mineData[iRow][iCol].markedAs = 'exploded';
     this.uncoverAllCells(this.mineData);
     window.setTimeout(() => {
@@ -361,6 +363,8 @@ export class MineSweeperComponent implements OnInit {
 
   onWinCondition() {
     this.isWin = true;
+    this.dispatch({ type: GameActionType, payload: true });
+
   }
 
   resetGrid() {
