@@ -19,17 +19,16 @@ import {
   styleUrls: ['./mine-sweeper.component.scss'],
 })
 export class MineSweeperComponent implements OnInit {
-  //gameState$: Observable<GameState>;
+  gameState$: Observable<GameState>;
   subscriptions: Subscription[] = [];
 
   dispatch: any;
   constructor(
-    //private store: Store<{ gameState: GameState }>,
-    private store: Store< GameState >,
+    private store: Store<{ gameState: GameState }>,
+   // private store: Store< GameState >,
     private storeFacade: dispatchFacade
   ) {
-    //this.gameState$ = store.select('gameState');
-
+    this.gameState$ = store.select('gameState');
 
     this.subscriptions.push(store.select(state => state).subscribe((next: any) => {
       console.log('nexxxxxxxxxxxxxxxxxxxt, ', next);
