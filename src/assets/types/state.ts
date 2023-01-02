@@ -1,16 +1,6 @@
+import { GameState } from "src/app/state/state";
 import { CellData, GameStateDisplay, GameTypesKeys } from "./mineTypes";
-
-export type GameState = {
-  isLost: boolean;
-  isGameOver: boolean;
-  isGameStarted: boolean;
-  uncoveredCells: number;
-  flagsPlaced: number
-  gridSize: GameTypesKeys;
-  gameStateDisplay: GameStateDisplay;
-  mineData: CellData[][];
-  mineDataOlde?: CellData[][];
-};
+ 
 
 export enum GameActionType {
   TOGGLE_LOST = "TOGGLE_LOST",
@@ -82,18 +72,14 @@ type ResetGameAction = {
   payload: GameState;
 };
 
-type GetMineDataAction = {
-  type: GameActionType.SET_MINE_DATA;
-  payload: CellData[][];
-};
-
-type GetMineDataOldeAction = {
-  type: GameActionType.SET_MINE_DATA_OLDE;
-  payload: CellData[][];
-};
+// type GetMineDataAction = {
+//   type: GameActionType.SET_MINE_DATA;
+//   payload: CellData[][];
+// };
 
 
-export type GameActions =
+
+export type GameActionsState =
   | ToggleLostAction
   | StartGameAction
   | EndGameAction
@@ -104,7 +90,6 @@ export type GameActions =
   | IncrementFlagsPlaced
   | DecrementFlagsPlaced
   | ChooseGridSizeAction
-  | ResetGameAction
-  | GetMineDataAction
-  | GetMineDataOldeAction;
+  | ResetGameAction;
+ // | GetMineDataAction;
 

@@ -9,25 +9,20 @@ import { MineSweeperComponent } from './mine-sweeper/mine-sweeper.component';
 import { FormsModule } from '@angular/forms';
 import { StoreModule } from '@ngrx/store';
 import { gameReducer } from './state/game.reducer';
+import { dispatchFacade } from './state/game.dispatch.facade';
 
-const routes: Routes = [
-  { path: '', component: MineSweeperComponent},
-];
+const routes: Routes = [{ path: '', component: MineSweeperComponent }];
 @NgModule({
-  declarations: [
-    AppComponent,
-    MineSweeperComponent,
-  ],
+  declarations: [AppComponent, MineSweeperComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
     RouterModule.forRoot(routes),
-    StoreModule.forRoot({gameState: gameReducer}),
+   // StoreModule.forRoot( gameReducer ),
+   StoreModule.forRoot({ gameState: gameReducer }),
     FormsModule,
-   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  ],
+  providers: [dispatchFacade],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
-
- 
+export class AppModule {}

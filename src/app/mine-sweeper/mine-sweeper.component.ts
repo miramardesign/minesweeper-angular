@@ -1,26 +1,45 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Observable, of } from 'rxjs';
+import { Observable, of, Subscription } from 'rxjs';
 import {
   CellData,
   GameTypes,
   PerimeterDirections,
 } from 'src/assets/types/mineTypes';
-import { setStart, toggleLost } from '../state/game.actions';
+import { setStart, SetStartAction, toggleLost } from '../state/game.actions';
 import { GameSizes } from 'src/utils/mineSetupData';
-import { GameState } from 'src/assets/types/state';
+import { GameActionType, GameState } from '../state/state';
+
+import {
+  dispatchFacade
+} from '../state/game.dispatch.facade';
 @Component({
   selector: 'app-mine-sweeper',
   templateUrl: './mine-sweeper.component.html',
   styleUrls: ['./mine-sweeper.component.scss'],
 })
 export class MineSweeperComponent implements OnInit {
-  gameState$: Observable<GameState>;
+  //gameState$: Observable<GameState>;
+  subscriptions: Subscription[] = [];
 
   dispatch: any;
-  constructor(private store: Store<{ gameState: GameState }>) {
-    this.gameState$ = store.select('gameState');
-    this.dispatch = this.store.dispatch;
+  constructor(
+    //private store: Store<{ gameState: GameState }>,
+    private store: Store< GameState >,
+    private storeFacade: dispatchFacade
+  ) {
+    //this.gameState$ = store.select('gameState');
+
+
+    this.subscriptions.push(store.select(state => state).subscribe((next: any) => {
+      console.log('nexxxxxxxxxxxxxxxxxxxt, ', next);
+
+     // this.gameState$ = next;
+
+      
+    }));
+
+    this.dispatch = this.storeFacade.dispatch;
   }
 
   gridSize: number = 8;
@@ -40,9 +59,8 @@ export class MineSweeperComponent implements OnInit {
   ngOnInit(): void {
     console.log('minesPlaced', this.minesPlaced);
     this.setNumAdjMineData(this.mineData);
-
   }
- 
+
   placeMines(
     mineData: CellData[][],
     numRows: number,
@@ -210,8 +228,12 @@ export class MineSweeperComponent implements OnInit {
 
   goTurn(iRow: number, iCol: number, mineData: CellData[][]) {
     //already lost.
+    //  this.store.dispatch(new SetStartAction({payload: true}));
 
-    this.store.dispatch(setStart({isGameStart: true}))
+    //this.store.dispatch(setStart({ isGameStart: true }));
+
+    this.dispatch({ type: GameActionType.SET_START, payload: true });
+
     //this.dispatch(setStart({isGameStart: true}))
     if (this.isLose) {
       return;
