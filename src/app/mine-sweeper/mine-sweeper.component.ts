@@ -245,7 +245,7 @@ export class MineSweeperComponent implements OnInit {
         this.mineData[iRow][iCol].uncovered = true;
       });
     });
-  }
+  } 
 
   uncoverCell(iRow: number, iCol: number, mineData: CellData[][]) {
     //if already uncovered
@@ -361,11 +361,11 @@ export class MineSweeperComponent implements OnInit {
     }, 500);
   }
 
-  onWinCondition() {
-    this.isWin = true;
-    this.dispatch({ type: GameActionType, payload: true });
+  // onWinCondition() {
+  //   this.isWin = true;
+  //   this.dispatch({ type: GameActionType, payload: true });
 
-  }
+  // }
 
   resetGrid() {
     this.minesPlaced = 0;

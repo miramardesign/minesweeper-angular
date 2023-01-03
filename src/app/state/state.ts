@@ -45,7 +45,7 @@ export const initialState: GameState = {
   isLost: false,
   isGameOver: false,
   isGameStarted: false,
-  uncoveredCells: 0,
+  uncoveredCells: 99990,
   flagsPlaced: 0,
   gameStateDisplay: GameStateDisplay.UNSTARTED,
   gridSize: gridSizeSeparate,

@@ -1,55 +1,11 @@
-import { Action, createReducer, on, Store } from '@ngrx/store';
 import { InitialState } from '@ngrx/store/src/models';
 import { GameStateDisplay, GameTypes } from 'src/assets/types/mineTypes';
 import { GameActionType } from 'src/assets/types/state';
-// import { GameActions, setEnd, setStart, SetStartAction, toggleLost, ToggleLostAction } from './game.actions';
 import { GameState, initialState } from './state';
 
-// export const gameReducerWasFirstWorkingTest = createReducer(
-//   initialState,
-//   on(toggleLost, (state) => {
-//     return {
-//       ...state,
-//       isLost: !state.isLost,
-//       gameStateDisplay: GameStateDisplay.LOSE,
-//     };
-//   }),
-//   on(setStart, (state, { isGameStart }) => {
-//     return {
-//       ...state,
-//       isGameStarted: isGameStart,
-//     };
-//   }),
-//   on(setEnd, (state, { isGameOver }) => {
-//     return {
-//       ...state,
-//       isGameOver: isGameOver,
-//     };
-//   }),
-
-// );
 
 //trying:
 // https://stackblitz.com/edit/angular-ngrx-redux-base?file=src%2Fapp%2Fstore%2Freducers.ts
-
-// export const gameReducerTestFromOther = (state = initialState, action: any)  => {
-//   console.log("TEST reducer:", action, 'state---------------');
-//   switch (action.type) {
-
-//     case ToggleLostAction.TYPE:
-//       return {
-//         ...state,
-//         isLost: !state.isLost,
-//       }
-//     case SetStartAction.TYPE:
-//       return {
-//         ...state,
-//         isGameStarted: action.payload,
-//       }
-//     default:
-//       return state;
-//   }
-// }
 
 /**
  * react redux style dispatch. so i can copy the style of that rpoject.
@@ -96,7 +52,6 @@ export const gameReducer = (state = initialState, action: any) => {
         ...state,
         uncoveredCells: state.uncoveredCells + 1,
       };
-
     case GameActionType.INCREMENT_FLAGS_PLACED:
       return {
         ...state,
