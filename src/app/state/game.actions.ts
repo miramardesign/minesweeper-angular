@@ -43,6 +43,22 @@ export const setUncoverCell = createAction(
   props<GameState>()
 );
 
+export const incrementFlagsPlaced = createAction(
+  GameActionType.INCREMENT_FLAGS_PLACED,
+  props<GameState>()
+);
+
+export const decrementFlagsPlaced = createAction(
+  GameActionType.DECREMENT_FLAGS_PLACED,
+  props<GameState>()
+);
+
+
+export const chooseGridSize = createAction(
+  GameActionType.CHOOSE_SIZE,
+  props<GameState>()
+);
+
 //last -===========================
 export const resetGame = createAction(
   GameActionType.RESET_GAME,
@@ -96,16 +112,16 @@ class DecrementFlagsPlacedAction implements Action {
   readonly type = GameActionType.DECREMENT_FLAGS_PLACED;
 }
 
-export class ChooseGridSizeAction implements Action {
-  readonly type = GameActionType.RESET_GAME;
+ class ChooseGridSizeAction implements Action {
+  readonly type = GameActionType.CHOOSE_SIZE;
   constructor(public payload: GameTypesKeys) {}
 }
-export class ResetGameAction implements Action {
+ class ResetGameAction implements Action {
   readonly type = GameActionType.RESET_GAME;
   constructor(public payload: boolean) {}
 }
 
-export class SetMineDataAction implements Action {
+ class SetMineDataAction implements Action {
   readonly type = GameActionType.SET_MINE_DATA;
   constructor(public payload: CellData[][]) {}
 }

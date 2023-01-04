@@ -5,9 +5,12 @@ import { GameStateDisplay, GameTypes } from 'src/assets/types/mineTypes';
 import { GameActionType } from 'src/assets/types/state';
 import {
   changeGamestateDisplay,
+  chooseGridSize,
+  decrementFlagsPlaced,
   GameActions,
   resetGame,
   setEnd,
+  setMineData,
   setStart,
   setUncoverCell,
   toggleLost,
@@ -69,34 +72,26 @@ export class dispatchFacade {
         );
       case GameActionType.DECREMENT_FLAGS_PLACED:
         return dispatch(
-          incrementFlagsPlaced({...this.state })
+          decrementFlagsPlaced({...this.state })
+        );
+      case GameActionType.CHOOSE_SIZE:
+        return dispatch(
+          chooseGridSize({...this.state, gridSize: action.payload })
         );
 
 
-      // case GameActionType.INCREMENT_FLAGS_PLACED:
-      //   return {
-      //     ...state,
-      //     flagsPlaced: state.flagsPlaced + 1,
-      //   };
-      // case GameActionType.DECREMENT_FLAGS_PLACED:
-      //   return {
-      //     ...state,
-      //     flagsPlaced: state.flagsPlaced - 1,
-      //   };
-      // case GameActionType.CHOOSE_SIZE:
-      //   return {
-      //     ...state,
-      //     gridSize: action.payload,
-      //   };
-      // case GameActionType.SET_MINE_DATA:
-      //   return {
-      //     ...state,
-      //     mineData: action.payload,
-      //   };
       case GameActionType.RESET_GAME:
          return dispatch(
           resetGame({...initialState})
         );
+      case GameActionType.SET_MINE_DATA:
+        return dispatch(
+          setMineData({...this.state, mineData: action.payload})
+        );
+      //   return {
+      //     ...state,
+      //     mineData: action.payload,
+      //   };
       default:
         console.error('Action not implemented', action);
         throw new Error();
